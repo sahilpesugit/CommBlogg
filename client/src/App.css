@@ -30,8 +30,8 @@ a{
 }
 
 .card-content{
-  width: 1200px;
-  height: 300px;
+  width: 90%;
+  height: 10%;
   overflow: hidden;
   border: 1px solid #dadada;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -43,13 +43,13 @@ a{
 }
 
 .bg {
-  width: 1200px; 
+  width: 90%; 
   height: 200px; 
   object-fit: cover;
 }
 
 .body-content{
-  width: 1150px;
+  width: 98%;
   height: 100px;
   overflow-x: hidden;
   overflow-y: auto;

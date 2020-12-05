@@ -21,7 +21,7 @@ const Routing = () => {
       history.push('/')
     }
     else {
-      //history.push('/login')
+      history.push('/login')
     }
   }, [])
   return (

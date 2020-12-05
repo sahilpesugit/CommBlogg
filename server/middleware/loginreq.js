@@ -3,21 +3,19 @@ const { JWT } = require('../keys')
 const mongoose = require('mongoose')
 const User = mongoose.model("User")
 module.exports = (req, res, next) => {
-    const { authorization } = req.headers
-    if (!authorization) {
+    if (!req.headers || !req.headers.authorization) {
         return res.status(401).json({ error: "You must be Logged in!" })
     }
-    const token = authorization.replace("Bearer ", "")
-    jwt.verify(token, JWT, (err, payload) => {
-        if (err) {
-            return res.status(401).json({ error: "You must be Logged in!" })
-        }
-        const { _id } = payload
-        User.findById(_id).then(userdata => {
-            req.user = userdata
-            next()
-        })
-
+    console.log(req.headers.authorization)
+    const token = JSON.parse(req.headers.authorization.replace("Bearer ", ""))
+    const { _id } = token
+    User.findById(_id)
+    .then(userdata => {
+        req.user = userdata
+        next()
+    })
+    .catch(err => {
+        return res.status(401).json({ error: "You must be Logged in!" })
     })
 
 }

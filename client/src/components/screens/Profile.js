@@ -35,14 +35,18 @@ const Profile = () => {
 
     useEffect(() => {
         // console.log(state._id)
-        fetch('/allposts?id='+state._id, {
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("jwt")
-            }
-        }).then(res => res.json())
-            .then(result => {
-                setData(result.posts)
-            })
+        if((state === null || state._id === null)){
+            setData([]);
+        } else {
+            fetch('/allposts?id='+state._id, {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("jwt")
+                }
+            }).then(res => res.json())
+                .then(result => {
+                    setData(result.posts)
+                })
+        }
     }, [])
 
     const upVote = (id) => {
@@ -96,6 +100,10 @@ const Profile = () => {
             method: "DELETE",
             body: ''
         })
+        .then( res => {
+            //console.log(res)
+            setData([...data.filter(item => item._id !== id)]);
+        })
     }
 
     const updatePost = (id) => {
@@ -108,7 +116,7 @@ const Profile = () => {
 
     return (
         <div className="home">
-            <div style={{ maxWidth: '550px', margin: '0px auto' }}>
+            <div className="Head">
                 <h3><i>My Profile.</i></h3>
                 <h4>{state ? state.name : "loading"}</h4>
             </div>
@@ -121,7 +129,6 @@ const Profile = () => {
                             <img class="bg" alt="yoyo" src={item.picture} />
                         </div>
                         <div className="card-content">
-                            <i className="material-icons">favorite_border</i>
                             <h6>Author: {item.postedBy.name}</h6>
                             <p className="body-content">{item.body}</p>
                             <button className="btn-vote"

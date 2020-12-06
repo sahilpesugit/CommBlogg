@@ -12,13 +12,13 @@ router.get('/allposts', (req, res) => {
             'postedBy': req.query.id
         })
         .populate("postedBy", "_id name email")
-                .then(posts => {
-                    // console.log(posts)
-                    res.json({ posts })
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+        .then(posts => {
+            // console.log(posts)
+            res.json({ posts })
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
     else {
         Post.find()
@@ -34,6 +34,7 @@ router.get('/allposts', (req, res) => {
 
 router.patch('/posts/:postId', (req, res) => {
     Post.findOne({_id: req.params.postId})
+        .populate("postedBy", "_id name email")
         .then(mypost => {
             if(req.query.hasOwnProperty("vote")) {
                 if(req.query.vote === "up"){
@@ -127,7 +128,7 @@ router.get('/posts/:postId', loginreq, (req, res) => {
 router.delete('/posts/:postId', async (req, res) => {
     console.log("delete blog post");
     Post.remove({_id: req.params.postId})
-    .then(res.setStatus(200))
+    .then(res.sendStatus(200))
     .catch(err => {
         console.log(err)
         res.sendStatus(401)

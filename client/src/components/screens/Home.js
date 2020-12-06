@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const Home = () => {
     const [data, setData] = useState([])
-    const [refresh, setRefresh] = useState(false)
+    //const [refresh, setRefresh] = useState(false)
     useEffect(() => {
         fetch('/allposts', {
             headers: {
@@ -24,7 +24,7 @@ const Home = () => {
             .then(res => {
                 // console.log(res);
                 var cloneData = JSON.parse(JSON.stringify(data));
-                let obj = cloneData.find((o, i) => {
+                cloneData.find((o, i) => {
                     if (o._id === id) {
                         cloneData[i] = res.post;
                         setData(cloneData);
@@ -47,7 +47,7 @@ const Home = () => {
             .then(res => {
                 // console.log(res);
                 var cloneData = JSON.parse(JSON.stringify(data));
-                let obj = cloneData.find((o, i) => {
+                cloneData.find((o, i) => {
                     if (o._id === id) {
                         cloneData[i] = res.post;
                         setData(cloneData);
@@ -71,7 +71,6 @@ const Home = () => {
                             <img class="bg" alt="yoyo" src={item.picture}/>
                         </div>
                         <div className="card-content">
-                            <i className="material-icons">favorite_border</i>
                             <h6>Author: {item.postedBy.name}</h6>
                             <p className="body-content">{item.body}</p>
                             <button className="btn-vote"

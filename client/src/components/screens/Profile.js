@@ -25,11 +25,14 @@
 
 import React, { useEffect, useState, useContext } from 'react';
 import { userContext } from '../../App'
+import { useHistory } from 'react-router-dom'
 
 const Profile = () => {
     const [data, setData] = useState([])
     const { state, dispatch } = useContext(userContext)
     const [refresh, setRefresh] = useState(false)
+    const history = useHistory()
+
     useEffect(() => {
         // console.log(state._id)
         fetch('/allposts?id='+state._id, {
@@ -88,6 +91,21 @@ const Profile = () => {
             })
     }
 
+    const deletePost = (id) => {
+        fetch("/posts/" + id, {
+            method: "DELETE",
+            body: ''
+        })
+    }
+
+    const updatePost = (id) => {
+        console.log("update id: " + id)
+        history.push({
+            pathname: '/updatepost',
+            id: id
+        })
+    }
+
     return (
         <div className="home">
             <div style={{ maxWidth: '550px', margin: '0px auto' }}>
@@ -115,6 +133,14 @@ const Profile = () => {
                                 onClick={() => downVote(item._id)}>
                                 -
                                 </button>
+                            <button className="btn-delete"
+                            onClick={() => deletePost(item._id)}>
+                            Delete
+                            </button>
+                            {/* <button className="btn-delete"
+                            onClick={() => updatePost(item._id)}>
+                            Update
+                            </button> */}
                         </div>
                     </div>
                     )

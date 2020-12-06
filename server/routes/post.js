@@ -6,14 +6,30 @@ const loginreq = require('../middleware/loginreq')
 const Post = mongoose.model("Post")
 
 router.get('/allposts', (req, res) => {
-    Post.find()
+    if(req.query.hasOwnProperty("id")){
+        // console.log(req.query.id)
+        Post.find({
+            'postedBy': req.query.id
+        })
         .populate("postedBy", "_id name email")
-        .then(posts => {
-            res.json({ posts })
-        })
-        .catch(err => {
-            console.log(err)
-        })
+                .then(posts => {
+                    // console.log(posts)
+                    res.json({ posts })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+    }
+    else {
+        Post.find()
+            .populate("postedBy", "_id name email")
+            .then(posts => {
+                res.json({ posts })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 })
 
 router.patch('/posts/:postId', (req, res) => {

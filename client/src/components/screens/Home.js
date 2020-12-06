@@ -15,14 +15,14 @@ const Home = () => {
     }, [])
 
     const upVote = (id) => {
-        console.log(id);
+        // console.log(id);
         fetch("/posts/"+id+"?vote=up", {
             method: "PATCH",
             body: ''
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 var cloneData = JSON.parse(JSON.stringify(data));
                 let obj = cloneData.find((o, i) => {
                     if (o._id === id) {
@@ -38,14 +38,14 @@ const Home = () => {
     }
 
     const downVote = (id) => {
-        console.log(id);
+        // console.log(id);
         fetch("/posts/"+id+"?vote=down", {
             method: "PATCH",
             body: ''
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 var cloneData = JSON.parse(JSON.stringify(data));
                 let obj = cloneData.find((o, i) => {
                     if (o._id === id) {
@@ -64,7 +64,7 @@ const Home = () => {
         <div className="home">
             {
                 data.map(item => {
-                    console.log(item)
+                    // console.log(item)
                     return (<div className="homecard">
                         <h5>{item.title}</h5>
                         <div className="card-image">

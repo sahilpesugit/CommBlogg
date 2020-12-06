@@ -16,6 +16,38 @@ router.get('/allposts', (req, res) => {
         })
 })
 
+router.patch('/posts/:postId', (req, res) => {
+    Post.findOne({_id: req.params.postId})
+        .then(mypost => {
+            if(req.query.hasOwnProperty("vote")) {
+                if(req.query.vote === "up"){
+                    if(mypost.votes == undefined)
+                        mypost.votes = 1;
+                    else 
+                        mypost.votes = mypost.votes + 1
+                } else if(req.query.vote === "down"){
+                    if(mypost.votes == undefined || mypost.votes === 0)
+                        mypost.votes = 0;
+                    else 
+                        mypost.votes = mypost.votes - 1
+                }
+                mypost.save()
+                    .then(result => {
+                        res.json({ post: result })
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        res.sendStatus(500)
+                    })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.sendStatus(401)
+        })
+})
+
+
 router.post('/createpost', loginreq, (req, res) => {
     const { title, body, pic } = req.body
     if (!title || !body || !pic) {
@@ -25,8 +57,9 @@ router.post('/createpost', loginreq, (req, res) => {
     const post = new Post({
         title: title,
         body: body,
-        photo: pic,
-        postedBy: req.user
+        picture: pic,
+        postedBy: req.user,
+        votes: 0
     })
     post.save().then(result => {
         res.json({ post: result })

@@ -22,8 +22,38 @@ a{
   width: 30%;
 }
 
-.home-card{
-  max-width: 500px;
+.homecard{
   height: max-content;
-  margin: 26px auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.card-content{
+  width: 1200px;
+  height: 300px;
+  overflow: hidden;
+  border: 1px solid #dadada;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  padding: 5px 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.bg {
+  width: 1200px; 
+  height: 200px; 
+  object-fit: cover;
+}
+
+.body-content{
+  width: 1200px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 8px 8px 16px 0 rgba(0, 0, 0, 0.2);
 }

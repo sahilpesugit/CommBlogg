@@ -16,6 +16,9 @@ const postSchema = new mongoose.Schema({
     postedBy: {
         type: ObjectId,
         ref: 'User'
+    },
+    votes: {
+        type: Number
     }
 })
 mongoose.model("Post", postSchema)

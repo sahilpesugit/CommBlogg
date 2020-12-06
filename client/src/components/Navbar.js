@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom' //used so that every component whe clicked doesnt have to reload the page
 import { userContext } from '../App'
 import M from 'materialize-css'
-import { useHistory } from 'react-router-dom'
-
 
 const NavBar = () => {
     const { state, dispatch } = useContext(userContext)

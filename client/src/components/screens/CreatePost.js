@@ -58,14 +58,16 @@ const CreatePost = () => {
             <h3>New Post</h3>
             <input
                 type="text"
+                size="50"
                 placeholder="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)} />
-            <input
+            <textarea
                 type="text"
                 placeholder="body"
                 value={body}
-                onChange={(e) => setBody(e.target.value)} />
+                onChange={(e) => setBody(e.target.value)}>
+            </textarea> 
             <div className="file-field input-field">
                 <div className="btn waves-effect #212121 grey darken-4" >
                     <span>Upload Image</span>

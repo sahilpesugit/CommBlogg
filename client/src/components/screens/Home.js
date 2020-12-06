@@ -23,10 +23,34 @@ const Home = () => {
             .then(res => res.json())
             .then(res => {
                 console.log(res);
-                let obj = data.find((o, i) => {
+                var cloneData = JSON.parse(JSON.stringify(data));
+                let obj = cloneData.find((o, i) => {
                     if (o._id === id) {
-                        data[i] = res;
-                        //setData(data);
+                        cloneData[i] = res.post;
+                        setData(cloneData);
+                        return true; // stop searching
+                    }
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const downVote = (id) => {
+        console.log(id);
+        fetch("/posts/"+id+"?vote=down", {
+            method: "PATCH",
+            body: ''
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                var cloneData = JSON.parse(JSON.stringify(data));
+                let obj = cloneData.find((o, i) => {
+                    if (o._id === id) {
+                        cloneData[i] = res.post;
+                        setData(cloneData);
                         return true; // stop searching
                     }
                 });
@@ -40,6 +64,7 @@ const Home = () => {
         <div className="home">
             {
                 data.map(item => {
+                    console.log(item)
                     return (<div className="homecard">
                         <h5>{item.title}</h5>
                         <div className="card-image">
@@ -49,11 +74,15 @@ const Home = () => {
                             <i className="material-icons">favorite_border</i>
                             <h6>Author: {item.postedBy.name}</h6>
                             <p className="body-content">{item.body}</p>
-                            <button className="btn waves-effect #212121 grey darken-4"
+                            <button className="btn-vote"
                                 onClick={() => upVote(item._id)}>
-                                Upvote!
+                                +
                             </button>
-                            <p>vote: {item.votes}</p>
+                            {item.votes}
+                            <button className="btn-vote"
+                                onClick={() => downVote(item._id)}>
+                                -
+                            </button>
                         </div>
                     </div>
                     )

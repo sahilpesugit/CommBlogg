@@ -19,6 +19,6 @@ There are three layers to this application:
 * Install NodeJS on your machine.(globally)
 * Using npm, install react and react-router-dom inside the client directory.
 * Using npm, install nodemon and ExpressJS inside the server directory.
-* run *npm start* in the console under the client folder.
-* run *nodemon app* in the console under the server folder.
+* run *npm start* in the shell under the client folder.
+* run *nodemon app* in the shell under the server folder.
 
